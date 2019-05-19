@@ -4,8 +4,9 @@ const db = require("../db/db");
 
 
 router.get("/", (req, res, next) => {
-    res.send("This is Products route!");
+    res.render("products");
 });
+
 
 
 module.exports = router;

@@ -1,0 +1,57 @@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+<script>
+    
+
+    
+
+    const date = new Date();
+
+    const yearmonthday = date.getFullYear();
+    
+    document.getElementById("div").innerHTML = `
+        <label>Browser Select</label>
+        <form id="form" action="/?year=${document.forms[0].elements[0].value}" method="GET">
+            <select class="browser-default" name="year">
+                <option value="apple">Option 1</option>
+                <option value="peach">Option 2</option>
+                <option value="banana">Option 3</option>
+                <option value=${yearmonthday}>Option 3</option>
+            </select>
+            <button type="submit">확인</button>
+        </form>
+    
+    `;
+
+    var test = document.querySelector(".browser-default");
+    
+    test.onchange = function(){
+        const index = test.selectedIndex;
+        var selectedValue = test[index].value;
+        
+    };
+    
+    document.getElementById("form").onsubmit = (e) => {
+        var year = document.forms[0].elements[0].value;
+
+       // var index = test.selectedIndex;
+        //var selectedValue = test[index].value;
+
+        console.log("Value of Form", year);
+        
+        var data =  { data : year}
+        
+        
+    }
+
+
+    
+
+    
+
+
+
+
+</script>
+</html>

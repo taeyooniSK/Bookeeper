@@ -8,24 +8,25 @@ const config = require("./db/config");
 const db = require("./db/db");
 
 // view engine
-app.use(express.static("public"));
+app.use('/static', express.static(__dirname + "public"));
 app.set("view engine", "ejs");
-
-// bodyParser
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 
 // routes
 
 const index = require("./routes/index");
 const products = require("./routes/products");
+const search = require("./routes/search");
+
+
 
 
 app.use('/', index);
 app.use('/products', products);
+app.use('/search', search);
 
-
+// bodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 3000;
 

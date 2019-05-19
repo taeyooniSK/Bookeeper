@@ -1,12 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRUD_APP</title>
-</head>
-<body>
-    <h1>THIS IS HOME</h1>
-</body>
-</html>
+<% include ./partials/header %>
+
+<h1>I bought a(n) <%= numOfItems %> item(s)</h1>
+<% if(result) { %>
+<% result.map(info => { %>
+    <p>The product(s) is(are) <%= info.name %> </p>
+    <p>I bought <%= info.amount %></p>
+    <p>Total price : <%= info.total_price %></p>
+    <% }) %>
+<% } %>
+
+<div id="div">
+
+</div>
+
+<p id="result"></p>
+<!-- <label>Browser Select</label>
+<select class="browser-default">
+  <option value="apple">Option 1</option>
+  <option value="peach">Option 2</option>
+  <option value="banana">Option 3</option>
+</select> -->
+
+
+
+
+<% include ./partials/footer %>
+    

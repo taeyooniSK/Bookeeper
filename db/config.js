@@ -3,7 +3,8 @@ const MYSQL_CONFIG = {
     user: "test",
     password: "test",
     database: "crud_mysql",
-    port: 3306
+    port: 3306,
+    multipleStatements: true
 };
 
 module.exports = MYSQL_CONFIG;
