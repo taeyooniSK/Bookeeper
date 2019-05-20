@@ -5,19 +5,19 @@
 <body>
     <label>Browser Select</label>
     <form id="form" action="/search" method="GET">
-        <select class="browser-default" name="year" onchange="getValue(this.value)">
+        <select class="browser-default" name="year" onchange="test(event)">
             <option value="2016">2016</option>
             <option value="2017">2017</option>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
         </select>
-        <select class="browser-default" name="month" onchange="getValue(this.value)">
+        <select class="browser-default" name="month" onchange="test(event)">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-            <option value="6">6</option>6</option>
+            <option value="6">6</option>
             <option value="7">7</option>
             <option value="8">8</option>
             <option value="9">9</option>
@@ -25,7 +25,7 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
-        <select class="browser-default" name="day" onchange="getValue(this.value)">
+        <select class="browser-default" name="day" onchange="test(event)">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -57,12 +57,15 @@
             <option value="29">29</option>
             <option value="30">30</option>
         </select>
-        <a id="btn" href="/search" type="submit">확인</button>
+        <a id="confirm-btn" type="submit">확인</button>
+        <!-- <a id="btn" href="/search" type="submit">확인</button> -->
     </form>
   
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <script>
 
 
@@ -78,25 +81,38 @@
        
     }
 
+/*
+     form.addEventListener("submit", (e) => {
+        getDateValues(e);
+    }); 
 
-    function getDataValues(){
-        const btn = document.getElementById("btn");
-        const forms = Array.from(document.forms[0].elements);
-        let year;
-        let month;
-        let day;
+
+    const form = document.getElementById("form");
+
+    form.addEventListener("submit", () => {
+        getDateValues();
+    });
+*/
+    let year, month, day;
+    const btn = document.getElementById("confirm-btn");
+    function test(event){
         
-        for ( let i = 0; forms.length; i++) {
-            if(form[i].name === "year"){
-                year = form[i].value;
-            } else if ( form[i].name === "month"){
-                month = form[i].value;
-            } else if ( form[i].value === "day"){
-                day = form[i].value;
+        console.log(event.target.value);
+        if(event.target.name === "year"){
+           year = event.target.value;
+        } else if (event.target.name === "month"){
+           month = event.target.value;
+        } else if (event.target.name === "day"){
+            day = event.target.value;
+        }
+        btn.onclick = function(){
+            if(year && month && day){
+                btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}`);
             }
         }
-        btn.setAttribute("href", `/search/${year}?month=${month}?day=${day}`);
     }
+
+  
     
     
     

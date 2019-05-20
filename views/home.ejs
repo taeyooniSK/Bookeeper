@@ -1,28 +1,24 @@
 <% include ./partials/header %>
 
+
+<nav>
+  <div class="nav-wrapper teal">
+    <a href="#" class="brand-logo">Bookeeping</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
 <h1>I bought a(n) <%= numOfItems %> item(s)</h1>
 <% if(result) { %>
 <% result.map(info => { %>
     <p>The product(s) is(are) <%= info.name %> </p>
-    <p>I bought <%= info.amount %></p>
+    <p>The number of Items I bought : <%= info.amount %></p>
     <p>Total price : <%= info.total_price %></p>
     <% }) %>
 <% } %>
-
-<div id="div">
-
-</div>
-
-<p id="result"></p>
-<!-- <label>Browser Select</label>
-<select class="browser-default">
-  <option value="apple">Option 1</option>
-  <option value="peach">Option 2</option>
-  <option value="banana">Option 3</option>
-</select> -->
-
-
-
 
 <% include ./partials/footer %>
     
