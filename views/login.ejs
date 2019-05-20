@@ -1,34 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <title>CRUD_APP</title>
-</head>
-<body>
-
-  <form class="container col m12 s12 xl12">
-      <div class="container">
-        <div class="row">
-            <div class="input-field col m12 s12 xl12">
-              <input id="username" type="text" name="username" class="validate">
-              <label for="username">username</label>
-            </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="input-field col m12 s12 xl12">
-            <input id="password" type="password" name="password" class="validate">
-            <label for="password">Password</label>
+<% include ./partials/header %>
+  
+  <div class="container mt-5">
+      <div class="col-md-6 m-auto">
+          <div class="card card-body">
+              <h1 class="text-center">Login</h1>
+              <% include ./partials/messages %>
+              <form action="/login" method="POST" class="container">
+                  <div class="form-group">
+                      <label for="username">Username</label>
+                      <input id="username" 
+                          type="text"
+                          name="username" 
+                          class="form-control" 
+                          value="<%= typeof username != 'undefined' ? username : '' %>" 
+                      />
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input id="password" 
+                          type="password" 
+                          name="password" 
+                          class="form-control" 
+                          value="<%= typeof password != 'undefined' ? password : '' %>"
+                      />
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block float-right">Login</button>
+                  <br>
+                  <p class="lead mt-5">Don't Have An Account? <a href="/signup">Sign Up</a></p>
+              </form>
           </div>
-        </div>
       </div>
-  </form>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-
-</html>
+  <% include ./partials/footer %>

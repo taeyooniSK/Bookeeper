@@ -1,15 +1,20 @@
 <% include ./partials/header %>
 
-
-<nav>
-  <div class="nav-wrapper teal">
-    <a href="#" class="brand-logo">Bookeeping</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="/login">Login</a></li>
-      <li><a href="/signup">Sign Up</a></li>
+<nav class="navbar navbar-dark bg-primary">
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="navbar-brand text-white" href="/">Bookeeping</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/signup">Sign Up</a>
+        </li>
     </ul>
-  </div>
 </nav>
+        
+
 
 <h1>I bought a(n) <%= numOfItems %> item(s)</h1>
 <% if(result) { %>

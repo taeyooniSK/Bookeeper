@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/db");
-const flash = require("connect-flash");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+const flash = require("connect-flash");
 const bcrypt = require("bcrypt");
 
 
@@ -15,69 +14,46 @@ router.get("/login", (req, res, next) => {
     res.render("login");
 })
 
+router.post("/login", passport.authenticate("local",
+   { 
+      successRedirect : "/dashboard",
+      failureRedirect: "/login",
+      failureFlash: true
+    }),(req, res, next) => {
+        
+  });
+/*
+// Login handle
 router.post("/login", (req, res, next) => {
-    db.query("SELECT email, password FROM users WHERE email = ?", req.body.password, (err, result) => {
-        if (err) console.log(err);
-        if(!result){
-            console.log("There is no data");
-        }
-        passport.authenticate('local'), { 
-            failureRedirect : "/login",
-            successRedirect : "/" 
-        }, (req, res) => {
+    
+    
+    passport.authenticate('local', {
+        successRedirect: "/dashboard",
+        failureRedirect: "/login",
+        failureFlash: true
+    })(req, res, next);
 
-        }
-    });
+    
+    // db.query("SELECT * FROM users WHERE username = ?", req.body.user, (err, result) => {
+    //     if (err) console.log(err);
+    //     if(!result){
+    //         console.log("There is no data");
+    //     }
+        
+    // });
 });
+
+*/
+
 
 router.get("/signup", (req, res) => {
     res.render("signup");
 });
 
 
-// passport.serializeUser((user, done) => {
-//     done(null, user.username);
-// });
-
-// passport.deserializeUser( (username, done) => {
-//     done(null, username);
-// });
-
-
-
-// router.post("/signup", passport.authenticate('join-local', {
-//     successRedirect: "/",
-//     failureRedirect: "/signup",
-//     failureFlash: true
-// }));
-
-// router.post("/signup", (req, res) => {
-    
-// });
-
-
-// passport.use("local", LocalStrategy, (req, username, password, done) => {
-//     db.query("SELECT * FROM users WHERE username = ?", [username], (err, result) =>{
-//         if (err){
-//             return done(err);
-//         }
-//         if(rows.length){
-//             return done(null, false, {message: "your email is already used"});
-//         } else {
-//             const salt = bcrypt.genSalt(10);
-//             bcrypt.hash(password, salt, null, (err, hashedPassword) => {
-//                 const sql = {username, password: hasedPassword}; // 입력받은 아이디와 해쉬된 비밀번호를 hash로 바꿔서 넣어줌. ( Insert username, hashed password by bcrypt gets inserted into DB)
-//                 db.query("INSERT INTO users SET ?", sql, (err, result) => {
-//                     if (err) throw err;
-//                     return done(null, {"email" : email, })
-//                 });
-//             });
-//         }
-//     })
-// });
-
-
-
+router.get("/dashboard", (req, res) => {
+    res.render("dashboard");
+});
 
 
 
@@ -120,9 +96,11 @@ router.post("/signup", (req, res, next) => {
                         db.query("INSERT INTO users (username, password) VALUES ( ?, ? )", [username, hashedPassword], (err, result) => {
                             console.log(result);
                             if (err){
-                                req.flash("error", error.message);
-                                return res.render("back");
+                                req.flash("error", err.message);
+                                return res.render("signup");
                             }
+                            req.flash("success", "You signed up so you can login now");
+                            return res.redirect("login");
                             // res.send("you signed up");
                             // passport.authenticate("local")(req, res, () => {
                             //     req.flash("success", `Wecome to Bookeeping ${result[0].username}`);
@@ -132,46 +110,11 @@ router.post("/signup", (req, res, next) => {
                     })
                 });
 
-            res.render("dashboard", { username });
             }
         })
     }
     
-    
-
-    // db.query("INSERT INTO users (username, password) VALUES ( ?, ? )", [newUser, password], (err, result) => {
-    //     if (err){
-    //         req.flash("error", error.message);
-    //         return res.render("signup");
-    //     }
-    //     console.log(result);
-    //     passport.authenticate("local")(req, res, () => {
-    //         req.flash("success", `Wecome to Bookeeping ${result[0].username}`);
-    //         res.redirect("/");
-    //     });
-    // });
-
-
-
-
-    // bcrypt.hash(password, salt, (err, hashedPassword) => {
-    //     if (err) console.log(err);
-    //     db.query("INSERT INTO users (username, password) VALUES ( ?, ? )", [newUser, hashedPassword], (err, result) => {
-    //         if (err){
-    //             req.flash("error", error.message);
-    //             return res.render("signup");
-    //         }
-    //         passport.authenticate("local")(req, res, () => {
-    //             req.flash("success", `Wecome to Bookeeping ${result[0].username}`);
-    //             res.redirect("/");
-    //         });
-    //     });
-    // });
-    
-    // res.send("pass");
 });
-
-
 
 
 
@@ -256,6 +199,8 @@ router.get("/", (req, res, next) => {
 // });
 
 // const query = "DELETE FROM products WHERE name = 'cell phone'";
+
+
 
 
 
