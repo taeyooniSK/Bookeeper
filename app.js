@@ -21,7 +21,7 @@ const db = require("./db/db");
 
 
 // view engine
-app.use('/static', express.static(__dirname + "public"));
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 

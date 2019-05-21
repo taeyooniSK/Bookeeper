@@ -18,6 +18,20 @@ router.get("/", isLoggedIn, (req, res) => {
     
     });
 });
+
+// Create product in DB
+router.post("/", isLoggedIn, (req, res) => {
+    const { name, price, amount, total_price, description } = req.body;
+    const user_id = req.user.id;
+    const query = "INSERT INTO products (name, user_id, price, amount, total_price, description) VALUES(?, ?, ?, ?, ?, ?)";
+    db.query(query, [name, user_id, price, amount, total_price, description], (err, result) => {
+        console.log(result);
+        if (err) console.log(err);
+            res.redirect("/dashboard");
+    });
+});
+
+
 // Show a product edit form
 router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
     const product_id = req.params.product_id;
@@ -36,6 +50,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
         
     });
 });
+
 
 // Update 
 router.put("/products/:product_id", isLoggedIn, (req, res) => {
