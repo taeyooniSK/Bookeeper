@@ -50,4 +50,18 @@ router.put("/products/:product_id", isLoggedIn, (req, res) => {
     });
 });
 
+
+// Delete  
+router.delete("/products/:product_id", isLoggedIn, (req, res) => {
+    const product_id = req.params.product_id;
+    const user_id = req.user.id;
+    const query = "DELETE from products WHERE id = ? && user_id = ?";
+    db.query(query, [product_id, user_id], (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        res.redirect("/dashboard");
+    });
+});
+
+
 module.exports = router;
