@@ -18,6 +18,15 @@
     </div>
 <% } %>
 
+<% if(success_update != '') { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= success_update %>
+           <button type="button" class="close" data-dismiss="alert">
+               <span>&times;</span>
+           </button>
+    </div>
+<% } %>
+
 <% if(error != '') { %>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <%= error %>
@@ -45,6 +54,8 @@
            </button>
     </div>
 <% } %>
+
+
 
 
 

@@ -26,6 +26,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
         const { name, price, amount, total_price, description } = result[0];
         if (err) console.log(err);
             res.render("product_edit", {
+                product_id,
                 name,
                 price,
                 amount,
@@ -37,9 +38,16 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
 });
 
 // Update 
-
-router.put("/:product_id/edit", isLoggedIn, (req, res) => {
-    
+router.put("/products/:product_id", isLoggedIn, (req, res) => {
+    const { name, price, amount, total_price, description } = req.body;
+    const user_id = req.user.id;
+    const product_id = req.params.product_id;
+    const query = "UPDATE products SET name = ?, price = ?, amount = ?, total_price = ?, description = ? WHERE id = ? && user_id = ?";
+    db.query(query, [name, price, amount, total_price, description, product_id, user_id], (err, result) => {
+        if (err) console.log(err);
+        console.log(result);
+        res.redirect("/dashboard");
+    });
 });
 
 module.exports = router;

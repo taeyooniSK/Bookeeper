@@ -4,7 +4,7 @@
     <div class="col-md-6 m-auto">
         <div class="card card-body">
             <h1 class="text-center">Edit A Product Info</h1>
-            <form action="/<%= %>" method="POST" class="container">
+            <form action="/dashboard/products/<%= product_id %>?_method=PUT" method="POST" class="container">
                 <div class="form-group">
                     <label for="name">Username</label>
                     <input id="name" 
@@ -20,7 +20,7 @@
                         type="text" 
                         name="price" 
                         class="form-control" 
-                        value="<%= typeof price != 'undefined' ? price : '' %>"
+                        value="<%= typeof price != 'undefined' ? price : '' %>"  
                     />
                 </div>
                 <div class="form-group">
@@ -28,12 +28,12 @@
                     <input id="amount" 
                         type="text" 
                         name="amount" 
-                        class="form-control" 
-                        value="<%= typeof amount != 'undefined' ? amount : '' %>"
+                        class="form-control"
+                        value="<%= typeof amount != 'undefined' ? amount : '' %>" 
                     />
                 </div>
                 <div class="form-group">
-                    <label for="total_price">total_price</label>
+                    <label for="total_price">Total Price</label>
                     <input id="total_price" 
                         type="text" 
                         name="total_price" 

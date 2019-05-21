@@ -58,6 +58,7 @@ app.use((req, res, next) => {
     res.locals.error1 = req.flash("error1"); // login passport error
     res.locals.error_noData = req.flash("error_noData");
     res.locals.success = req.flash("success");
+    res.locals.success_update = req.flash("success_update");
     next();
 });
 
