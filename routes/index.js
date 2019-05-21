@@ -5,10 +5,12 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const bcrypt = require("bcrypt");
 
+// Middleware for Authentication 
+const { isLoggedIn } = require("../middleware"); 
 
 
 
-
+// Login route
 
 router.get("/login", (req, res, next) => {
     res.render("login");
@@ -20,10 +22,25 @@ router.post("/login", passport.authenticate("local",
       failureRedirect: "/login",
       failureFlash: true
     }),(req, res, next) => {
-        
+
   });
+
+
+  router.get("/logout", (req, res, next) => {
+    req.logout();
+    req.flash("success", "You are logged out");
+    res.redirect("/login");
+});
+
+
+
+
+
+
+
+
 /*
-// Login handle
+// Login handle  original
 router.post("/login", (req, res, next) => {
     
     
@@ -45,19 +62,22 @@ router.post("/login", (req, res, next) => {
 
 */
 
+// Signup- GET route
 
 router.get("/signup", (req, res) => {
     res.render("signup");
 });
 
 
-router.get("/dashboard", (req, res) => {
-    res.render("dashboard");
+router.get("/dashboard", isLoggedIn, (req, res) => {
+    res.render("dashboard", {
+        name: req.user.username
+    });
 });
 
 
 
-
+// Signup- POST route : username and password validation checkup
 
 router.post("/signup", (req, res, next) => {
     const { username, password }  = req.body;
@@ -101,11 +121,6 @@ router.post("/signup", (req, res, next) => {
                             }
                             req.flash("success", "You signed up so you can login now");
                             return res.redirect("login");
-                            // res.send("you signed up");
-                            // passport.authenticate("local")(req, res, () => {
-                            //     req.flash("success", `Wecome to Bookeeping ${result[0].username}`);
-                            //     res.redirect("/");
-                            // });
                         });
                     })
                 });
@@ -116,11 +131,10 @@ router.post("/signup", (req, res, next) => {
     
 });
 
-
+// Test route: it's going to be changed
 
 router.get("/", (req, res, next) => {
 
-    // const q = "SELECT COUNT(*) AS total FROM products";
     const q = "SELECT name, price, amount, total_price, created_at, COUNT(*) AS numberOfItems FROM products";
     db.query(q, (err, result) => {
         if (err) console.log(err);
@@ -141,67 +155,16 @@ router.get("/", (req, res, next) => {
 
 
 
-router.get("/", (req, res, next) => {
-
-        console.log(req.query);
-        const q1 = `SELECT name, created_at FROM products WHERE YEAR(created_at) = ${req.query.year}`;
-       //const q2 = "SELECT name, price, amount, total_price, created_at, COUNT(*) AS numberOfItems FROM products";
-        db.query(q1, (err, result) => {
-            console.log(result);
-            res.send(result);
-        });
-        // res.send(req.query.year);
-  
-});
-
-
-
 // router.get("/", (req, res, next) => {
-//     //const q = "SELECT COUNT(*) AS total FROM products";
-//     // console.log(req);
-//     console.log(req.query);
-//     const q = `SELECT name, created_at FROM products WHERE YEAR(created_at) = ${req.query.year}`;
-//     db.query(q, (err, result) => {
-//         //console.log(req);
-//         // if (err) console.log(err);
-//         console.log(result)
-//         res.send(`<p>${result}</p>`);
-//     });
+
+//         console.log(req.query);
+//         const q1 = `SELECT name, created_at FROM products WHERE YEAR(created_at) = ${req.query.year}`;
+//         db.query(q1, (err, result) => {
+//             console.log(result);
+//             res.send(result);
+//         });
+
 // });
-
-
-
-
-
-
-
-
-
-// var product = {
-//     name: "cell phone",
-//     price: 10000,
-//     amount: 14,
-//     description: "This is a cell phone from Samsung"
-// };
-
-// db.query("INSERT INTO products SET ?", product, (err, results) => {
-//     if (err) console.log(err);
-//     console.log(results);
-// })
-
-
-// router.get("/", (req, res, next) => {
-//     const query = "SELECT * FROM products";
-//     db.query(query, (err, result) => {
-//     if(err) console.log(err);
-//     console.log(result);
-// });
-// });
-
-// const query = "DELETE FROM products WHERE name = 'cell phone'";
-
-
-
 
 
 module.exports = router;

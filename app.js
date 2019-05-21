@@ -48,7 +48,7 @@ app.use(flash());
 
 // Global variable 만들기 -res.locals는 request의 scope에서 response의 지역변수들을 포함하고 있음 
 app.use((req, res, next) => {  
-    res.locals.currentUser = req.user;
+    //res.locals.user = req.user; // Dashboard (다른 템플릿도 포함, view 단에서 변수로 쓸 수 있음 그런데 굳이 여기서 할 필요 없고 dashboard 라우터에서 req.user로 전달하는게 낫다.
     res.locals.error = req.flash("error");
     res.locals.error1 = req.flash("error1"); // login passport error
     res.locals.success = req.flash("success");
