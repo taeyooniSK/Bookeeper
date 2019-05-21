@@ -1,10 +1,14 @@
 const express = require("express");
+const methodOverride = require("method-override");
 const app = express();
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const flash = require("connect-flash");
 
+
+// Method-ovveride
+app.use(methodOverride('_method'));
 
 // Passport config
 require("./passport_config/passport")(passport);
@@ -25,6 +29,7 @@ app.set("view engine", "ejs");
 // routes
 
 const index = require("./routes/index");
+const dashboard = require("./routes/dashboard");
 const products = require("./routes/products");
 const search = require("./routes/search");
 
@@ -51,6 +56,7 @@ app.use((req, res, next) => {
     //res.locals.user = req.user; // Dashboard (다른 템플릿도 포함, view 단에서 변수로 쓸 수 있음 그런데 굳이 여기서 할 필요 없고 dashboard 라우터에서 req.user로 전달하는게 낫다.
     res.locals.error = req.flash("error");
     res.locals.error1 = req.flash("error1"); // login passport error
+    res.locals.error_noData = req.flash("error_noData");
     res.locals.success = req.flash("success");
     next();
 });
@@ -61,6 +67,7 @@ app.use(bodyParser.json());
 
 // router
 app.use('/', index);
+app.use('/dashboard', dashboard);
 app.use('/products', products);
 app.use('/search', search);
 

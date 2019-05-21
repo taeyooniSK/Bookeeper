@@ -6,5 +6,83 @@
 <p class="lead mb-3">Welcome <%= name %></p>
 <a href="/logout" class="btn btn-secondary">Logout</a>
 
+<% if(products.length === 0) { %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Total Price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+  </table>
+  <div class="container">
+    <p class="text-center">No data</p>
+  </div>
+<% } else { %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Total Price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(product => { %>
+        <tr>
+            <th scope="row"><%= product.id %></th>
+            <td><%= product.name %></td>
+            <td><%= product.price %></td>
+            <td><%= product.amount %></td>
+            <td><%= product.total_price %></td>
+            <td><%= product.description %></td>
+            <td><a href="/dashboard/products/<%= product.id %>/edit" class="btn btn-warning text-white">Edit</a></td>
+            <td><a href="/dashboard/products/<%= product.id %>?_method=DELETE" class="btn btn-danger text-white">Delete</a></td>
+          </tr>
+      <% }) %>
+      <!-- <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td><a class="btn btn-warning text-white">Edit</a></td>
+        <td><a class="btn btn-danger text-white">Delete</a></td>
+      </tr> -->
+      <!-- <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td><a class="btn btn-warning text-white">Edit</a></td>
+        <td><a class="btn btn-danger text-white">Delete</a></td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td>@twitter</td>
+        <td><a class="btn btn-warning text-white">Edit</a></td>
+        <td><a class="btn btn-danger text-white">Delete</a></td>
+      </tr> -->
+    </tbody>
+  </table>
+<% } %>
 
 <% include ./partials/footer %>

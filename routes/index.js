@@ -69,11 +69,11 @@ router.get("/signup", (req, res) => {
 });
 
 
-router.get("/dashboard", isLoggedIn, (req, res) => {
-    res.render("dashboard", {
-        name: req.user.username
-    });
-});
+// router.get("/dashboard", isLoggedIn, (req, res) => {
+//     res.render("dashboard", {
+//         name: req.user.username
+//     });
+// });
 
 
 
