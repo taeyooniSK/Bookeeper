@@ -17,12 +17,12 @@ router.get("/login", (req, res, next) => {
 })
 
 router.post("/login", passport.authenticate("local",
-   { 
+    { 
       successRedirect : "/dashboard",
       failureRedirect: "/login",
       failureFlash: true
     }),(req, res, next) => {
-
+        req.flash("success", "You are successfully logged in");
   });
 
 

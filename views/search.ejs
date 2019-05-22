@@ -1,17 +1,15 @@
 <% include ./partials/header %>
 
 
-
-<body>
     <label>Browser Select</label>
     <form id="form" action="/search" method="GET">
-        <select class="browser-default" name="year" onchange="test(event)">
+        <select class="select" name="year">
             <option value="2016">2016</option>
             <option value="2017">2017</option>
             <option value="2018">2018</option>
             <option value="2019">2019</option>
         </select>
-        <select class="browser-default" name="month" onchange="test(event)">
+        <select class="select" name="month">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -25,7 +23,7 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
-        <select class="browser-default" name="day" onchange="test(event)">
+        <select class="select" name="day">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -57,66 +55,125 @@
             <option value="29">29</option>
             <option value="30">30</option>
         </select>
-        <a id="confirm-btn" type="submit">확인</button>
-        <!-- <a id="btn" href="/search" type="submit">확인</button> -->
+        <a id="confirm-btn" class="btn btn-success text-white" type="submit">확인</a>
     </form>
-  
+    <a href="/dashboard" class="btn btn-primary text-white">Dashboard</a>
 
+    <% if(result.length === 0) { %>
+    <div class="container pt-5">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Created_at</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="container">
+            <p class="text-center">No data</p>
+          </div>
+        <% } else { %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Created_at</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% result.forEach(product => { %>
+              <tr>
+                <th scope="row"><%= new Date(product.created_at).toLocaleString() %></th>
+                <td><%= product.name %></td>
+                <td><%= product.price %></td>
+                <td><%= product.amount %></td>
+                <td><%= product.total_price %></td>
+                <td><%= product.description %></td>
+                <td><a href="/dashboard/products/<%= product.id %>/edit" class="btn btn-warning text-white">Edit</a></td>
+                <td>
+                  <form action="/dashboard/products/<%= product.id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger text-white" type="submit">Delete</a>
+                  </form>  
+                </td>
+                </tr>
+            <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+    </div>
+  
+    <script>
+
+        const myForm = document.getElementById("form");
+        const select = document.querySelector(".select");
+        const btn = document.getElementById("confirm-btn");
+       
+        /*
+        function test(event){
+            
+            console.log(event.target.value);
+            if(event.target.name === "year"){
+               year = event.target.value;
+            } else if (event.target.name === "month"){
+               month = event.target.value;
+            } else if (event.target.name === "day
+                day = event.target.value;
+                //day = typeof event.target.value === 'undefined' ? day : "";
+            }
+            btn.onclick = function(e){
+                e.preventDefault();
+                formData = new FormData(myForm);      
+                console.log(formData.get("year"));
+                console.log(formData.get("month"));
+                console.log(formData.get("day"));
+
+                if(year || month || day){
+                    btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}`);
+                }
+            }
+        }
+    
+      */
+
+        btn.onclick = function(e){
+            let year, month, day;
+            let formData = new FormData();
+            //e.preventDefault();
+            formData = new FormData(myForm);     
+            
+            year = formData.get("year");
+            month = formData.get("month");
+            day = formData.get("day")
+            
+            console.log(formData.get("year"));
+            console.log(formData.get("month"));
+            console.log(formData.get("day"));
+
+           
+            btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}`);
+            
+        }
+        
+        
+        
+    
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<script>
 
-
-    
-    function getValue(val){
-      /*
-        const year = document.forms[0].elements[0].value;
-        console.log(year);
-        */
-        const btn = document.getElementById("btn");
-        btn.href ="/search/"
-        btn.setAttribute("href", `/search/${val}`);
-       
-    }
-
-/*
-     form.addEventListener("submit", (e) => {
-        getDateValues(e);
-    }); 
-
-
-    const form = document.getElementById("form");
-
-    form.addEventListener("submit", () => {
-        getDateValues();
-    });
-*/
-    let year, month, day;
-    const btn = document.getElementById("confirm-btn");
-    function test(event){
-        
-        console.log(event.target.value);
-        if(event.target.name === "year"){
-           year = event.target.value;
-        } else if (event.target.name === "month"){
-           month = event.target.value;
-        } else if (event.target.name === "day"){
-            day = event.target.value;
-        }
-        btn.onclick = function(){
-            if(year && month && day){
-                btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}`);
-            }
-        }
-    }
-
-  
-    
-    
-    
-
-</script>
 </body>
 </html>

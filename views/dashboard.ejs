@@ -16,6 +16,7 @@
 <h1 class="mt-4">Dash Board</h1>
 <p class="lead mb-3">Welcome <%= name %></p>
 <a href="/logout" class="btn btn-secondary">Logout</a>
+<a href="/search" class="btn btn-secondary">Search</a>
 
 <div class="container mb-5">
   <form action="/dashboard/" method="POST">
@@ -101,6 +102,6 @@
         </table>
       <% } %>
   </div>
- 
+  <script type="text/javascript" src="/scripts/total_price.js"></script>
 
 <% include ./partials/footer %>

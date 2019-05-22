@@ -10,12 +10,12 @@ router.get("/", isLoggedIn, (req, res) => {
     // if there is a data, products will be shown. Otherwise, "No data" shows up in the template
     db.query("SELECT * FROM products WHERE user_id = ?", [req.user.id], (err, result) => {
         if (err) console.log(err);
+            
             res.render("dashboard", {
                 name: req.user.username,
                 products: result
             });
-        
-    
+            req.flash("success", "You are successfully logged in");
     });
 });
 
@@ -27,6 +27,7 @@ router.post("/", isLoggedIn, (req, res) => {
     db.query(query, [name, user_id, price, amount, total_price, description], (err, result) => {
         console.log(result);
         if (err) console.log(err);
+            req.flash("success", "The data is successfully saved in DB");
             res.redirect("/dashboard");
     });
 });
@@ -61,6 +62,7 @@ router.put("/products/:product_id", isLoggedIn, (req, res) => {
     db.query(query, [name, price, amount, total_price, description, product_id, user_id], (err, result) => {
         if (err) console.log(err);
         console.log(result);
+        req.flash("success", "The data is updated");
         res.redirect("/dashboard");
     });
 });
@@ -74,6 +76,7 @@ router.delete("/products/:product_id", isLoggedIn, (req, res) => {
     db.query(query, [product_id, user_id], (err, result) => {
         if (err) console.log(err);
         console.log(result);
+        req.flash("success", "The data is deleted");
         res.redirect("/dashboard");
     });
 });
