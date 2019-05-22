@@ -1,15 +1,12 @@
 <% include ./partials/header %>
 
 
-    <label>Browser Select</label>
+    <label>Select Date</label>
     <form id="form" action="/search" method="GET">
-        <select class="select" name="year">
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
+        <select id="year" name="year">
             <option value="2019">2019</option>
         </select>
-        <select class="select" name="month">
+        <select id="month" name="month">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -23,7 +20,7 @@
             <option value="11">11</option>
             <option value="12">12</option>
         </select>
-        <select class="select" name="day">
+        <select id="day" name="day">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -54,8 +51,62 @@
             <option value="28">28</option>
             <option value="29">29</option>
             <option value="30">30</option>
+            <option value="31">31</option>
         </select>
-        <a id="confirm-btn" class="btn btn-success text-white" type="submit">확인</a>
+        
+        <!-- 조회 마지막 기준 폼 -->
+        <select id="year2" name="year2">
+            <option value="2019">2019</option>
+        </select>
+        <select id="month2" name="month2">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <select id="day2" name="day2">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+        </select>
+
+        <button id="confirm-btn" class="btn btn-success text-white" type="submit">확인</button>
     </form>
     <a href="/dashboard" class="btn btn-primary text-white">Dashboard</a>
 
@@ -114,6 +165,7 @@
         <% } %>
     </div>
   
+    <script type="text/javascript" src="/scripts/search_date.js"></script>
     <script>
 
         const myForm = document.getElementById("form");
@@ -146,6 +198,43 @@
         }
     
       */
+        
+
+
+        yearVal = new Date().getFullYear();
+        monthVal = new Date().getMonth() + 1;
+        dayVal = new Date().getDate() - 1;
+        
+        year2Val = new Date().getFullYear();
+        month2Val = new Date().getMonth() + 1;
+        day2Val = new Date().getDate();
+
+        year[year.selectedIndex]
+
+
+
+        
+        const fullMonths = [1,3,5,7,8,10,12];
+
+        
+/*
+        month.onchange = () => {
+           FullMonths.filter( month => {
+            if(month === month[month.selectedIndex].value){
+                for ( let i = 0; i < 31; i++){
+                    document.createElement("option");
+                }
+            }
+           });      
+        }
+        month2.onchange = () => {
+
+        }
+*/
+        
+
+
+
 
         btn.onclick = function(e){
             let year, month, day;
