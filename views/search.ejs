@@ -106,11 +106,11 @@
             <option value="31">31</option>
         </select>
 
-        <button id="confirm-btn" class="btn btn-success text-white" type="submit">확인</button>
+        <a id="confirm-btn" class="btn btn-success text-white" type="submit">확인</a>
     </form>
     <a href="/dashboard" class="btn btn-primary text-white">Dashboard</a>
 
-    <% if(result.length === 0) { %>
+    <% if( typeof result === "undefined" || result.length === 0 ) { %>
     <div class="container pt-5">
         <table class="table table-striped">
             <thead>
@@ -209,7 +209,7 @@
         month2Val = new Date().getMonth() + 1;
         day2Val = new Date().getDate();
 
-        year[year.selectedIndex]
+        //year[year.selectedIndex]
 
 
 
@@ -237,7 +237,7 @@
 
 
         btn.onclick = function(e){
-            let year, month, day;
+            let year, month, day, year2, month2, day2;
             let formData = new FormData();
             //e.preventDefault();
             formData = new FormData(myForm);     
@@ -245,13 +245,19 @@
             year = formData.get("year");
             month = formData.get("month");
             day = formData.get("day")
+            year2 = formData.get("year2");
+            month2= formData.get("month2");
+            day2 = formData.get("day2")
             
             console.log(formData.get("year"));
             console.log(formData.get("month"));
             console.log(formData.get("day"));
+            console.log(formData.get("year2"));
+            console.log(formData.get("month2"));
+            console.log(formData.get("day2"));
 
            
-            btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}`);
+            btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}&year2=${year2}&month2=${month2}&day2=${day2}`);
             
         }
         
