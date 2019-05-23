@@ -7,10 +7,15 @@ const { isLoggedIn } = require("../middleware");
 // Show whole info of user
 
 router.get("/", isLoggedIn, (req, res) => {
+    const user_id = req.user.id;
+    const today = new Date().toJSON().slice(0, 10); 
     // if there is a data, products will be shown. Otherwise, "No data" shows up in the template
-    db.query("SELECT * FROM products WHERE user_id = ?", [req.user.id], (err, result) => {
+    const q = "SELECT * FROM products WHERE user_id = ?;" +
+              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, ?) = CURDATE();" +
+              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, ?) >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) && DATE_FORMAT(created_at, ?) <= CURDATE();";
+    db.query(q, [user_id, user_id, today, user_id, today, today], (err, result) => {
         if (err) console.log(err);
-            
+            console.log(result);
             res.render("dashboard", {
                 name: req.user.username,
                 products: result
