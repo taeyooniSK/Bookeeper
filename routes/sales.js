@@ -49,7 +49,7 @@ router.get("/selling_products/:product_id/edit", isLoggedIn, (req, res) => {
     db.query("SELECT * FROM selling_products WHERE id = ? && user_id = ?", [product_id, user_id], (err, result) => {
         const { name, price, amount, total_price, description } = result[0];
         if (err) console.log(err);
-            res.render("purchase_edit", {
+            res.render("sales_edit", {
                 product_id,
                 name,
                 price,
