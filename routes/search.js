@@ -10,7 +10,15 @@ const { isLoggedIn } = require("../middleware");
 
 router.get("/", isLoggedIn, (req, res, next) => {
     const user_id = req.user.id;
-    const today = new Date().toJSON().slice(0, 10); 
+    const today = formatDate();
+
+    function formatDate(){
+        let year, month, day;
+            year = new Date().getFullYear();
+            month = new Date().getMonth() + 1;
+            day = new Date().getDate();
+         return [year, month, day].join("-");
+     }
     // const q1 = `SELECT * FROM products WHERE user_id = ?`;
     const q = "SELECT id, user_id, name, price, amount, total_price, description, DATE_FORMAT(created_at, '%Y-%c-%d %H:%i:%s') AS created_at FROM products WHERE user_id = ? && DATE_FORMAT(created_at, '%Y-%c-%d') = CAST(? AS DATETIME)";
     db.query(q, [user_id, today], (err, result) => {

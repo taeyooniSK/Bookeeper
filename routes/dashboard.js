@@ -8,12 +8,21 @@ const { isLoggedIn } = require("../middleware");
 
 router.get("/", isLoggedIn, (req, res) => {
     const user_id = req.user.id;
-    const today = new Date().toJSON().slice(0, 10); 
+    const today = formatDate(); 
+    
+
+    function formatDate(){
+       let year, month, day;
+           year = new Date().getFullYear();
+           month = new Date().getMonth() + 1;
+           day = new Date().getDate();
+        return [year, month, day].join("-");
+    }
     // if there is a data, products will be shown. Otherwise, "No data" shows up in the template
     const q = "SELECT * FROM products WHERE user_id = ?;" +
-              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, ?) = CURDATE();" +
-              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, ?) >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) && DATE_FORMAT(created_at, ?) <= CURDATE();";
-    db.query(q, [user_id, user_id, today, user_id, today, today], (err, result) => {
+              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, '%Y-%c-%d') = ?;" +
+              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, '%Y-%c-%d') >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);";
+    db.query(q, [user_id, user_id, today, user_id], (err, result) => {
         if (err) console.log(err);
             console.log(result);
             res.render("dashboard", {
