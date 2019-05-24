@@ -1,0 +1,61 @@
+<% include ./partials/header %>
+
+<div class="container mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+            <h1 class="text-center">Edit A Product Info</h1>
+            <form action="/purchase/products/<%= product_id %>?_method=PUT" method="POST" class="container">
+                <div class="form-group">
+                    <label for="name">Username</label>
+                    <input id="name" 
+                        type="text"
+                        name="name" 
+                        class="form-control" 
+                        value="<%= typeof name != 'undefined' ? name : '' %>" 
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input id="price" 
+                        type="text" 
+                        name="price" 
+                        class="form-control" 
+                        value="<%= typeof price != 'undefined' ? price : '' %>"  
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input id="amount" 
+                        type="text" 
+                        name="amount" 
+                        class="form-control"
+                        value="<%= typeof amount != 'undefined' ? amount : '' %>" 
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="total_price">Total Price</label>
+                    <input id="total_price" 
+                        type="text" 
+                        name="total_price" 
+                        class="form-control" 
+                        value="<%= typeof total_price != 'undefined' ? total_price : '' %>"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" 
+                        type="text" 
+                        name="description" 
+                        class="form-control"
+                    ><%= typeof description != 'undefined' ? description : '' %></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block float-right">Confirm</button>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/scripts/total_price.js"></script>
+
+<% include ./partials/footer %>

@@ -31,6 +31,8 @@ app.set("view engine", "ejs");
 const index = require("./routes/index");
 const dashboard = require("./routes/dashboard");
 const products = require("./routes/products");
+const purchase = require("./routes/purchase");
+const sales = require("./routes/sales");
 const search = require("./routes/search");
 
 
@@ -68,6 +70,8 @@ app.use(bodyParser.json());
 app.use('/', index);
 app.use('/dashboard', dashboard);
 app.use('/products', products);
+app.use('/purchase', purchase);
+app.use('/sales', sales);
 app.use('/search', search);
 
 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <title>CRUD_APP</title>
+</head>
+<body>
+
+<% include ./partials/messages %>
+
+<h1>Purchase</h1>
+<a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+<a href="/sales" class="btn btn-secondary">Sales</a>
+<div class="container mb-5">
+    <form action="/purchase" method="POST">
+        <div class="form-group">
+            <label for="name">Product Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" />
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="price">Price</label>
+                <input type="text" class="form-control" id="price" name="price" placeholder="Price" />
+            </div>
+            <div class="col">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount" />
+            </div>
+            <div class="col">
+                <label for="total_price">Total Price</label>
+                <input type="text" class="form-control" id="total_price" name="total_price" placeholder="Total Price"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea type="text" class="form-control" id="description" name="description" placeholder="Description">
+            </textarea>
+        </div>
+         <button type="submit" class="btn btn-primary float-right">Save</button>
+    </form>
+</div>
+
+
+<div class="container pt-5 pb-5">
+        <% if(typeof products === 'undefined' || products.length === 0) { %>
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Total Price</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                </table>
+                <div class="container">
+                  <p class="text-center">No data</p>
+                </div>
+              <% } else { %>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Total Price</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Edit</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% products.forEach(product => { %>
+                    <tr>
+                      <th scope="row"><%= product.id %></th>
+                      <td><%= product.name %></td>
+                      <td><%= product.price %></td>
+                      <td><%= product.amount %></td>
+                      <td><%= product.total_price %></td>
+                      <td><%= product.description %></td>
+                      <td><a href="/purchase/products/<%= product.id %>/edit" class="btn btn-warning text-white">Edit</a></td>
+                      <td>
+                        <form action="/purchase/products/<%= product.id %>?_method=DELETE" method="POST">
+                          <button class="btn btn-danger text-white" type="submit">Delete</a>
+                        </form>  
+                      </td>
+                      </tr>
+                  <% }) %>
+                  </tbody>
+                </table>
+              <% } %>
+          </div>
+
+<script type="text/javascript" src="/scripts/total_price.js"></script>
+<% include ./partials/footer %>

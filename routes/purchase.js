@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db/db");
 
+
 const { isLoggedIn } = require("../middleware"); 
-
-// Show whole info of user
-
 
 router.get("/", isLoggedIn, (req, res) => {
     Date.prototype.yyyymmdd = function (){
@@ -19,24 +17,19 @@ router.get("/", isLoggedIn, (req, res) => {
     const user_id = req.user.id;
     const date = new Date();
     const today = date.yyyymmdd(); 
-    
-    // if there is a data, products will be shown. Otherwise, "No data" shows up in the template
-    const q = "SELECT * FROM products WHERE user_id = ?;" +
-              "SELECT MIN(price) AS min_price FROM products WHERE user_id = ? &&  DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
-              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
-              "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && DATE(NOW()) >= DATE_SUB(DATE(NOW()), INTERVAL 7 DAY);";
-    db.query(q, [user_id, user_id, today, user_id, today, user_id], (err, result) => {
-        if (err) console.log(err);
-            console.log(result);
-            res.render("dashboard", {
-                name: req.user.username,
-                products: result
-            });
-            req.flash("success", "You are successfully logged in");
+
+    const q = "SELECT * FROM products WHERE user_id = ?;";
+
+    db.query(q, user_id, (err, result) => {
+        console.log(result);
+        res.render("purchase", {
+            products : result
+        });
     });
+    
 });
 
-// Create product in DB
+
 router.post("/", isLoggedIn, (req, res) => {
     const { name, price, amount, total_price, description } = req.body;
     const user_id = req.user.id;
@@ -45,7 +38,7 @@ router.post("/", isLoggedIn, (req, res) => {
         console.log(result);
         if (err) console.log(err);
             req.flash("success", "The data is successfully saved in DB");
-            res.redirect("/dashboard");
+            res.redirect("/purchase");
     });
 });
 
@@ -57,7 +50,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
     db.query("SELECT * FROM products WHERE id = ? && user_id = ?", [product_id, user_id], (err, result) => {
         const { name, price, amount, total_price, description } = result[0];
         if (err) console.log(err);
-            res.render("product_edit", {
+            res.render("purchase_edit", {
                 product_id,
                 name,
                 price,
@@ -80,7 +73,7 @@ router.put("/products/:product_id", isLoggedIn, (req, res) => {
         if (err) console.log(err);
         console.log(result);
         req.flash("success", "The data is updated");
-        res.redirect("/dashboard");
+        res.redirect("/purchase");
     });
 });
 
@@ -94,9 +87,11 @@ router.delete("/products/:product_id", isLoggedIn, (req, res) => {
         if (err) console.log(err);
         console.log(result);
         req.flash("success", "The data is deleted");
-        res.redirect("/dashboard");
+        res.redirect("/purchase");
     });
 });
+
+
 
 
 module.exports = router;
