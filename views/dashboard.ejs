@@ -23,17 +23,43 @@
 <div class="container text-center">
   <div class="row" style="height: 150px; padding: 30px;">
     <div class="col">
-        <small>Today's item of the minimum price per 1</small>
-        <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[1][0].min_price === 'null' ? 0 : products[1][0].min_price) %></strong></p>
+        <small>Today's purchased item of the minimum price per 1</small>
+        <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[1][0].min_price) %></strong></p>
       </div>
     <div class="col">
       <small>Today, you spent:</small>
-      <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[2][0].total_price) %></strong></p>
+      <p><strong>-<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[2][0].total_price) %></strong></p>
     </div>
     <div class="col">
       <small>For the last 7 days, you spent:</small>
-      <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[3][0].total_price) %></strong></p>
+      <p><strong>-<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[3][0].total_price) %></strong></p>
     </div>
+  </div>
+  <div class="row" style="height: 150px; padding: 30px;">
+      <div class="col">
+          <small>Today's selling item of the minimum price per 1</small>
+          <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[4][0].min_price) %></strong></p>
+        </div>
+      <div class="col">
+        <small>Today, you earned:</small>
+        <p><strong>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[5][0].total_selling_price) %></strong></p>
+      </div>
+      <div class="col">
+        <small>For the last 7 days, you earned:</small>
+        <p><strong>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[6][0].total_selling_price) %></strong></p>
+      </div>
+  </div>
+  <div class="row" style="height: 150px; padding: 30px;">
+      <div class="col">
+          <h4>Today</h4>
+          <small>Earnings - Expense:</small>
+          <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[5][0].total_selling_price - products[2][0].total_price) %></strong></p>
+        </div>
+      <div class="col">
+        <h4>For the 7 days</h4>
+        <small>Today, you earned:</small>
+        <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[6][0].total_selling_price - products[3][0].total_price) %></strong></p>
+      </div>
   </div>
 </div>
 
