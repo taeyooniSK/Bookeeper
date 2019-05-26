@@ -105,6 +105,11 @@
             <option value="30">30</option>
             <option value="31">31</option>
         </select>
+        <select name="type" id="type">
+          <option value="Both">Purchase & Sales</option>
+          <option value="P">Purchase</option>
+          <option value="S">Sales</option>
+        </select>
 
         <a id="confirm-btn" class="btn btn-success text-white" type="submit">확인</a>
     </form>
@@ -120,6 +125,7 @@
                 <th scope="col">Price</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Total Price</th>
+                <th scope="col">Type</th>
                 <th scope="col">Description</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
@@ -138,6 +144,7 @@
                 <th scope="col">Price</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Total Price</th>
+                <th scope="col">Type</th>
                 <th scope="col">Description</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
@@ -148,9 +155,15 @@
               <tr>
                 <th scope="row"><%= new Date(product.created_at).toLocaleString() %></th>
                 <td><%= product.name %></td>
-                <td><%= product.price %></td>
+                
+                <td><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(product.price) %></td>
                 <td><%= product.amount %></td>
-                <td><%= product.total_price %></td>
+                <% if( product.type === "P") { %>
+                <td>-<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(product.total_price) %></td>
+                <% } else { %>
+                <td>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(product.total_price) %></td>
+                <% } %>
+                <td><%= product.type %></td>
                 <td><%= product.description %></td>
                 <td><a href="/dashboard/products/<%= product.id %>/edit" class="btn btn-warning text-white">Edit</a></td>
                 <td>
@@ -237,7 +250,7 @@
 
 
         btn.onclick = function(e){
-            let year, month, day, year2, month2, day2;
+            let year, month, day, year2, month2, day2, type;
             let formData = new FormData();
             //e.preventDefault();
             formData = new FormData(myForm);     
@@ -247,7 +260,8 @@
             day = formData.get("day")
             year2 = formData.get("year2");
             month2= formData.get("month2");
-            day2 = formData.get("day2")
+            day2 = formData.get("day2");
+            type = formData.get("type");
             
             console.log(formData.get("year"));
             console.log(formData.get("month"));
@@ -255,9 +269,10 @@
             console.log(formData.get("year2"));
             console.log(formData.get("month2"));
             console.log(formData.get("day2"));
+            console.log(formData.get("type"));
 
            
-            btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}&year2=${year2}&month2=${month2}&day2=${day2}`);
+            btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}&year2=${year2}&month2=${month2}&day2=${day2}&type=${type}`);
             
         }
         

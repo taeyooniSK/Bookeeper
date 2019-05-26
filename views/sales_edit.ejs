@@ -42,6 +42,15 @@
                     />
                 </div>
                 <div class="form-group">
+                    <label for="type">Type</label>
+                    <input id="type" 
+                        type="text" 
+                        name="type" 
+                        class="form-control" 
+                        value="<%= typeof type != 'undefined' ? type : '' %>"
+                    />
+                </div>
+                <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="description" 
                         type="text" 

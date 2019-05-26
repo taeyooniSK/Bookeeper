@@ -42,23 +42,23 @@
         </div>
       <div class="col">
         <small>Today, you earned:</small>
-        <p><strong>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[5][0].total_selling_price) %></strong></p>
+        <p><strong>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[5][0].total_price) %></strong></p>
       </div>
       <div class="col">
         <small>For the last 7 days, you earned:</small>
-        <p><strong>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[6][0].total_selling_price) %></strong></p>
+        <p><strong>+<%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[6][0].total_price) %></strong></p>
       </div>
   </div>
   <div class="row" style="height: 150px; padding: 30px;">
       <div class="col">
           <h4>Today</h4>
           <small>Earnings - Expense:</small>
-          <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[5][0].total_selling_price - products[2][0].total_price) %></strong></p>
+          <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[5][0].total_price - products[2][0].total_price) %></strong></p>
         </div>
       <div class="col">
         <h4>For the 7 days</h4>
         <small>Today, you earned:</small>
-        <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[6][0].total_selling_price - products[3][0].total_price) %></strong></p>
+        <p><strong><%= new Intl.NumberFormat('ko-KR', { style: "currency", currency: 'KRW'}).format(products[6][0].total_price - products[3][0].total_price) %></strong></p>
       </div>
   </div>
 </div>
@@ -103,6 +103,7 @@
               <th scope="col">Price</th>
               <th scope="col">Amount</th>
               <th scope="col">Total Price</th>
+              <th scope="col">Type</th>
               <th scope="col">Description</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
@@ -121,6 +122,7 @@
               <th scope="col">Price</th>
               <th scope="col">Amount</th>
               <th scope="col">Total Price</th>
+              <th scope="col">Type</th>
               <th scope="col">Description</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
@@ -134,6 +136,7 @@
               <td><%= product.price %></td>
               <td><%= product.amount %></td>
               <td><%= product.total_price %></td>
+              <td><%= product.type %></td>
               <td><%= product.description %></td>
               <td><a href="/dashboard/products/<%= product.id %>/edit" class="btn btn-warning text-white">Edit</a></td>
               <td>

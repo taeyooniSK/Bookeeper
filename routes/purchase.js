@@ -18,7 +18,7 @@ router.get("/", isLoggedIn, (req, res) => {
     const date = new Date();
     const today = date.yyyymmdd(); 
 
-    const q = "SELECT * FROM products WHERE user_id = ?;";
+    const q = "SELECT * FROM products WHERE user_id = ? && type = 'P';";
 
     db.query(q, user_id, (err, result) => {
         console.log(result);
@@ -31,10 +31,10 @@ router.get("/", isLoggedIn, (req, res) => {
 
 
 router.post("/", isLoggedIn, (req, res) => {
-    const { name, price, amount, total_price, description } = req.body;
+    const { name, price, amount, total_price, type, description } = req.body;
     const user_id = req.user.id;
-    const query = "INSERT INTO products (name, user_id, price, amount, total_price, description) VALUES(?, ?, ?, ?, ?, ?)";
-    db.query(query, [name, user_id, price, amount, total_price, description], (err, result) => {
+    const query = "INSERT INTO products (name, user_id, price, amount, total_price, type, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    db.query(query, [name, user_id, price, amount, total_price, type, description], (err, result) => {
         console.log(result);
         if (err) console.log(err);
             req.flash("success", "The data is successfully saved in DB");
@@ -48,7 +48,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
     const product_id = req.params.product_id;
     const user_id = req.user.id;
     db.query("SELECT * FROM products WHERE id = ? && user_id = ?", [product_id, user_id], (err, result) => {
-        const { name, price, amount, total_price, description } = result[0];
+        const { name, price, amount, total_price, type, description } = result[0];
         if (err) console.log(err);
             res.render("purchase_edit", {
                 product_id,
@@ -56,6 +56,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
                 price,
                 amount,
                 total_price,
+                type,
                 description
             });
         
@@ -65,11 +66,11 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
 
 // Update 
 router.put("/products/:product_id", isLoggedIn, (req, res) => {
-    const { name, price, amount, total_price, description } = req.body;
+    const { name, price, amount, total_price, type, description } = req.body;
     const user_id = req.user.id;
     const product_id = req.params.product_id;
-    const query = "UPDATE products SET name = ?, price = ?, amount = ?, total_price = ?, description = ? WHERE id = ? && user_id = ?";
-    db.query(query, [name, price, amount, total_price, description, product_id, user_id], (err, result) => {
+    const query = "UPDATE products SET name = ?, price = ?, amount = ?, total_price = ?, type= ?, description = ? WHERE id = ? && user_id = ?";
+    db.query(query, [name, price, amount, total_price, type, description, product_id, user_id], (err, result) => {
         if (err) console.log(err);
         console.log(result);
         req.flash("success", "The data is updated");
