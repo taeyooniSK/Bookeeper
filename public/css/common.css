@@ -1,0 +1,22 @@
+table, 
+thead,
+tr,
+tbody,
+th,
+td {
+    text-align: center;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+body {
+    width: 100%;
+    height: 100%;
+    /* background: yellowgreen; */
+}
+
+

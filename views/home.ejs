@@ -1,6 +1,48 @@
-<% include ./partials/header %>
 
-<nav class="navbar navbar-dark bg-primary">
+<% include ./partials/header %>
+<nav class="navbar navbar-dark bg-primary flex">
+  <ul class="nav">
+      <li class="nav-item">
+        <a class="navbar-brand text-white" href="/"><i class="fas fa-pen"></i> Bookeeper</a>
+      </li>
+  </ul>
+  <ul class="nav flex-row">
+      <% if(!isLoggedIn){ %>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/signup">Sign Up</a>
+      </li>
+      <% } else { %>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/logout">Logout</a>
+      </li>
+      <%  } %>
+  </ul>
+</nav>
+<section class="app__introduction">
+  <div class="app_slideshow">
+      <div></div>
+      <div></div>
+  </div>
+  <div class="app__introduction--content">
+    <h1 class="display-3">Bookeeper</h1>
+    <p class="lead">BooKeeper is a web application for users to save data for daily expenses and earnings so that they can get insights on how to use money more economically.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/dashboard" role="button">Go to Dashboard</a>
+    </p>
+  </div>
+  
+</section>
+
+
+
+
+<!-- <nav class="navbar navbar-dark bg-primary">
     <ul class="nav justify-content-end">
         <li class="nav-item">
           <a class="navbar-brand text-white" href="/">Bookeeping</a>
@@ -12,18 +54,10 @@
           <a class="nav-link text-white" href="/signup">Sign Up</a>
         </li>
     </ul>
-</nav>
+</nav> -->
         
 
 
-<h1>I bought a(n) <%= numOfItems %> item(s)</h1>
-<% if(result) { %>
-<% result.map(info => { %>
-    <p>The product(s) is(are) <%= info.name %> </p>
-    <p>The number of Items I bought : <%= info.amount %></p>
-    <p>Total price : <%= info.total_price %></p>
-    <% }) %>
-<% } %>
 
 <% include ./partials/footer %>
     

@@ -10,15 +10,28 @@ const { isLoggedIn } = require("../middleware");
 
 
 
+router.get("/", isLoggedIn, (req, res, next) => {
+    const isLoggedIn = req.user.id ? true : false;
+    res.render("home", { isLoggedIn });
+});
+
+
+
 // Login route
+
+
+function usernameToLowerCase(req, res, next){
+    req.body.username = req.body.username.toLowerCase();
+    next();
+};
 
 router.get("/login", (req, res, next) => {
     res.render("login");
 })
 
-router.post("/login", passport.authenticate("local",
+router.post("/login", usernameToLowerCase, passport.authenticate("local",
     { 
-      successRedirect : "/dashboard",
+      successRedirect : "/",
       failureRedirect: "/login",
       failureFlash: true
     }),(req, res, next) => {
@@ -74,6 +87,7 @@ router.get("/signup", (req, res) => {
 //         name: req.user.username
 //     });
 // });
+
 
 
 

@@ -1,7 +1,6 @@
 const express = require("express");
 const methodOverride = require("method-override");
 const app = express();
-const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const flash = require("connect-flash");
@@ -23,7 +22,6 @@ const db = require("./db/db");
 // view engine
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
-
 
 
 // routes
