@@ -6,18 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="/stylesheets/common.css">
+    <link rel="stylesheet" href="/css/common.css">
     <title>CRUD_APP</title>
 </head>
 <body>
 
 <% include ./partials/messages %>
-
-<h1>Purchase</h1>
-<a href="/dashboard" class="btn btn-secondary">Dashboard</a>
-<a href="/sales" class="btn btn-secondary">Sales</a>
+<div class="mt-4 mb-4 container">
+    <h1 class="text-center mb-4">Purchase</h1>
+    <div class="mb-5 menu__wrapper text-center">
+        <a href="/" class="btn btn-primary">Home</a>
+        <a href="/dashboard" class="btn btn-info">Dashboard</a>
+        <a href="/search" class="btn btn-success">Search</a>
+        <a href="/sales" class="btn btn-secondary">Sales</a>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>  
+</div>
 <div class="container mb-5">
-    <form action="/purchase" method="POST">
+    <form id="purchase__save--form" action="/purchase" method="POST">
         <div class="form-row">
             <div class="col">
                 <label for="name">Product Name</label>
@@ -46,7 +52,7 @@
             <label for="description">Description</label>
             <textarea type="text" class="form-control" id="description" name="description" placeholder="Description"></textarea>
         </div>
-         <button type="submit" class="btn btn-primary float-right">Save</button>
+         <button id="save-btn" type="submit" class="btn btn-primary float-right">Save</button>
     </form>
 </div>
 
@@ -109,5 +115,27 @@
               <% } %>
           </div>
 
-<script type="text/javascript" src="/scripts/total_price.js"></script>
+<script type="text/javascript" src="/scripts/total_price.js">
+  const saveBtn = document.getElementById("save-btn");
+  saveBtn.onsubmit = function(e){
+    /* 
+    let formData = new FormData();
+    const purchaseForm = document.getElementById("purchase__save--form");
+    formData = new FormData(purchaseForm);
+    */
+    e.preventDefault();
+    console.log("it works?");
+    const name = document.getElementById("name"); 
+    const price = document.getElementById("price");
+    const amount = document.getElementById("amount");
+    const description = document.getElementById("description");
+
+      if(name.value.length === 0 || price.value.length === 0 || amount.value.length === 0 || description.value.length === 0){
+        alert("Please enter all information for your purchase :)");
+        return;
+      }
+    
+
+  }
+</script>
 <% include ./partials/footer %>

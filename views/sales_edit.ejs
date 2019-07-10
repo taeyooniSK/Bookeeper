@@ -1,10 +1,10 @@
 <% include ./partials/header %>
-
+<% include ./partials/messages %>
 <div class="container mt-5">
     <div class="col-md-6 m-auto">
         <div class="card card-body">
             <h1 class="text-center">Edit A Product Info</h1>
-            <form action="/sales/selling_products/<%= product_id %>?_method=PUT" method="POST" class="container">
+            <form action="/sales/products/<%= product_id %>/edit?_method=PUT" method="POST" class="container">
                 <div class="form-group">
                     <label for="name">Username</label>
                     <input id="name" 
@@ -63,6 +63,7 @@
                 <br>
             </form>
         </div>
+        <a href="/sales" class="btn btn-primary mt-4">Back</a>
     </div>
 </div>
 

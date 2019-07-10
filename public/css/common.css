@@ -16,7 +16,21 @@ li {
 body {
     width: 100%;
     height: 100%;
-    /* background: yellowgreen; */
+}
+
+.menu__btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu__btns > a {
+    margin-left: 10px;
+}
+
+.search__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

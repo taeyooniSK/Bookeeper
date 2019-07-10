@@ -7,30 +7,46 @@
     
     
     price_input.onkeyup = function (){
+        let parsedValue = parseInt(price_input.value);
+        // if parsedValue is not a number, trigger alert (To prevent users type invalid inputs)
+        if ( isNaN(parsedValue) ){
+            alert("Enter only numbers");
+            return;
+        }
+           
         if( isNaN(total_price_input.value) ){
             total_price_input.value = 0;
         }
         
+         // whenever whenever value of price or amount gets typed into inputs, make the values calculated & show it in total_price_input
         if(parseInt(price_input.value) != "" || parseInt(amount_input.value) != "") {
         
-        total_price_input.value = 
-            ( parseInt(this.value) ? parseInt(this.value) : 0 ) * 
-            ( parseInt(amount_input.value) ?  parseInt(amount_input.value) : 0);
-        } 
+            total_price_input.value = 
+                ( parseInt(this.value) ? parseInt(this.value) : 0 ) * 
+                ( parseInt(amount_input.value) ?  parseInt(amount_input.value) : 0);
+            } 
     
     }
     
     amount_input.onkeyup = function (){
+        let parsedAmountValue = parseInt(amount_input);
+         // if parsedAmountValue is not a number, trigger alert (To prevent users type invalid inputs)
+        if (isNaN(parsedAmountValue) ){
+            console.log(typeof parseInt(parsedAmountValue.value))
+            alert("Enter only numbers");
+            return;
+        }
+
         if( isNaN(total_price_input.value) ){
             total_price_input.value = 0;
         }
         
         if(parseInt(price_input.value) != "" || parseInt(amount_input.value) != "") {
             
-        total_price_input.value = 
-            ( parseInt(this.value) ? parseInt(this.value) : 0)  * 
-            (parseInt(price_input.value) ?  parseInt(price_input.value) : 0);
-        } 
+            total_price_input.value = 
+                ( parseInt(this.value) ? parseInt(this.value) : 0)  * 
+                (parseInt(price_input.value) ?  parseInt(price_input.value) : 0);
+            } 
     
     }
 

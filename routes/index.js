@@ -46,49 +46,11 @@ router.post("/login", usernameToLowerCase, passport.authenticate("local",
 });
 
 
-
-
-
-
-
-
-/*
-// Login handle  original
-router.post("/login", (req, res, next) => {
-    
-    
-    passport.authenticate('local', {
-        successRedirect: "/dashboard",
-        failureRedirect: "/login",
-        failureFlash: true
-    })(req, res, next);
-
-    
-    // db.query("SELECT * FROM users WHERE username = ?", req.body.user, (err, result) => {
-    //     if (err) console.log(err);
-    //     if(!result){
-    //         console.log("There is no data");
-    //     }
-        
-    // });
-});
-
-*/
-
 // Signup- GET route
 
 router.get("/signup", (req, res) => {
     res.render("signup");
 });
-
-
-// router.get("/dashboard", isLoggedIn, (req, res) => {
-//     res.render("dashboard", {
-//         name: req.user.username
-//     });
-// });
-
-
 
 
 // Signup- POST route : username and password validation checkup
@@ -166,19 +128,6 @@ router.get("/", (req, res, next) => {
     });
     
 });
-
-
-
-// router.get("/", (req, res, next) => {
-
-//         console.log(req.query);
-//         const q1 = `SELECT name, created_at FROM products WHERE YEAR(created_at) = ${req.query.year}`;
-//         db.query(q1, (err, result) => {
-//             console.log(result);
-//             res.send(result);
-//         });
-
-// });
 
 
 module.exports = router;

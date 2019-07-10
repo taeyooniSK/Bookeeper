@@ -58,19 +58,6 @@
     background-image: url("../img/money.jpg");
     animation-delay: 10s; 
 }
-/* .app_slideshow li:nth-child(3) { 
-background-image: url("http://i.imgur.com/emvhOnb.jpg");
-animation-delay: 20s; 
-}
-.app_slideshow li:nth-child(4) { 
-background-image: url("http://i.imgur.com/2LSMCmJ.jpg");
-animation-delay: 30s; 
-}
-.app_slideshow li:nth-child(5) { 
-background-image: url("http://i.imgur.com/TVGe0Ef.jpg");
-animation-delay: 40s; 
-} */
-
 
 @keyframes imageAnimation {
     0% {

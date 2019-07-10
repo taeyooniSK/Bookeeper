@@ -1,120 +1,131 @@
 <% include ./partials/header %>
 
-
-    <label>Select Date</label>
-    <form id="form" action="/search" method="GET">
-        <select id="year" name="year">
-            <option value="2019">2019</option>
-        </select>
-        <select id="month" name="month">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-        </select>
-        <select id="day" name="day">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-        </select>
-        
-        <!-- 조회 마지막 기준 폼 -->
-        <select id="year2" name="year2">
-            <option value="2019">2019</option>
-        </select>
-        <select id="month2" name="month2">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-        </select>
-        <select id="day2" name="day2">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20">20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            <option value="27">27</option>
-            <option value="28">28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-        </select>
-        <select name="type" id="type">
-          <option value="Both">Purchase & Sales</option>
-          <option value="P">Purchase</option>
-          <option value="S">Sales</option>
-        </select>
-
-        <a id="confirm-btn" class="btn btn-success text-white" type="submit">확인</a>
-    </form>
-    <a href="/dashboard" class="btn btn-primary text-white">Dashboard</a>
-
+    <div class="menu__wrapper container">
+      <div class="menu__btns--container"> 
+          <h1 class="mt-4 mb-4 text-center">Data Search</h1>
+          <div class="menu__btns mb-5">
+              <a href="/" class="btn btn-primary">Home</a>
+              <a href="/dashboard" class="btn btn-info">Dashboard</a>
+              <a href="/purchase" class="btn btn-secondary">Purchase</a>
+              <a href="/sales" class="btn btn-secondary">Sales</a>
+              <a href="/logout" class="btn btn-danger">Logout</a>
+          </div>
+      </div>
+    </div>
+    <div class="search__wrapper container">
+      <div class="search__dates">
+          <form id="form" action="/search" method="GET">
+            <select id="year" name="year">
+                <option value="2019">2019</option>
+            </select>
+            <select id="month" name="month">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select id="day" name="day">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+            </select>
+            
+            <!-- 조회 마지막 기준 폼 -->
+            <select id="year2" name="year2">
+                <option value="2019">2019</option>
+            </select>
+            <select id="month2" name="month2">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select id="day2" name="day2">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+            </select>
+            <select name="type" id="type">
+              <option value="Both">Purchase & Sales</option>
+              <option value="P">Purchase</option>
+              <option value="S">Sales</option>
+            </select>
+            <a id="confirm-btn" class="btn btn-success text-white" type="submit">Search</a>
+        </form>
+      </div>
+    </div>
     <% if( typeof result === "undefined" || result.length === 0 ) { %>
     <div class="container pt-5">
         <table class="table table-striped">
@@ -185,33 +196,7 @@
         const select = document.querySelector(".select");
         const btn = document.getElementById("confirm-btn");
        
-        /*
-        function test(event){
-            
-            console.log(event.target.value);
-            if(event.target.name === "year"){
-               year = event.target.value;
-            } else if (event.target.name === "month"){
-               month = event.target.value;
-            } else if (event.target.name === "day
-                day = event.target.value;
-                //day = typeof event.target.value === 'undefined' ? day : "";
-            }
-            btn.onclick = function(e){
-                e.preventDefault();
-                formData = new FormData(myForm);      
-                console.log(formData.get("year"));
-                console.log(formData.get("month"));
-                console.log(formData.get("day"));
-
-                if(year || month || day){
-                    btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}`);
-                }
-            }
-        }
-    
-      */
-        
+        let yearVal, year2Val, monthVal, month2Val, dayVal, day2Val;
 
 
         yearVal = new Date().getFullYear();
@@ -222,33 +207,7 @@
         month2Val = new Date().getMonth() + 1;
         day2Val = new Date().getDate();
 
-        //year[year.selectedIndex]
-
-
-
         
-        const fullMonths = [1,3,5,7,8,10,12];
-
-        
-/*
-        month.onchange = () => {
-           FullMonths.filter( month => {
-            if(month === month[month.selectedIndex].value){
-                for ( let i = 0; i < 31; i++){
-                    document.createElement("option");
-                }
-            }
-           });      
-        }
-        month2.onchange = () => {
-
-        }
-*/
-        
-
-
-
-
         btn.onclick = function(e){
             let year, month, day, year2, month2, day2, type;
             let formData = new FormData();
@@ -263,6 +222,7 @@
             day2 = formData.get("day2");
             type = formData.get("type");
             
+            /*
             console.log(formData.get("year"));
             console.log(formData.get("month"));
             console.log(formData.get("day"));
@@ -270,15 +230,12 @@
             console.log(formData.get("month2"));
             console.log(formData.get("day2"));
             console.log(formData.get("type"));
-
+          */
            
             btn.setAttribute("href", `/search/${year}?month=${month}&day=${day}&year2=${year2}&month2=${month2}&day2=${day2}&type=${type}`);
             
         }
         
-        
-        
-    
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
