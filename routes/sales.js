@@ -1,24 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/db");
+const helperFunctions = require("../public/scripts/helperFunctions");
 
 
 const { isLoggedIn } = require("../middleware"); 
 
 router.get("/", isLoggedIn, (req, res) => {
-    Date.prototype.yyyymmdd = function (){
-        const yyyy = this.getFullYear(); 
-        const mm = this.getMonth() + 1; // getMonth() is 0 based
-        const dd = this.getDate();
-
-        return [yyyy, (mm > 9 ? "" : "0" ) + mm, (dd > 9 ? "" : "0" ) + dd].join("-");
-    };
+    helperFunctions.yyyymmdd();
 
     const user_id = req.user.id;
     const date = new Date();
     const today = date.yyyymmdd(); 
-
-    const q = "SELECT * FROM products WHERE user_id = ? && type = 'S';";
+    // show items that you sold today
+    const q = "SELECT * FROM products WHERE user_id = ? && type = 'S' && DATE_FORMAT(created_at, '%Y-%m-%d') = CURDATE();";
 
     db.query(q, user_id, (err, result) => {
         console.log(result);
@@ -29,7 +24,7 @@ router.get("/", isLoggedIn, (req, res) => {
 });
 
 router.post("/", isLoggedIn, (req, res) => {
-    const { name, price, amount, total_price, type, description } = req.body;
+    const { name, price, amount, total_price, type, description } = helperFunctions.trim(req.body);
     const user_id = req.user.id;
     const query = "INSERT INTO products (name, user_id, price, amount, total_price, type, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
     db.query(query, [name, user_id, price, amount, total_price, type, description], (err, result) => {
@@ -69,7 +64,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
 
 // Update 
 router.put("/products/:product_id/edit", isLoggedIn, (req, res) => {
-    const { name, price, amount, total_price, type, description } = req.body;
+    const { name, price, amount, total_price, type, description } = helperFunctions.trim(req.body);
     const user_id = req.user.id;
     const product_id = req.params.product_id;
     // simple validation just in case a user enters no value in each input

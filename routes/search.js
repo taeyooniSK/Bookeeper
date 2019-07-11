@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/db");
+const helperFunctions = require("../public/scripts/helperFunctions");
 
 const { isLoggedIn } = require("../middleware"); 
 
@@ -10,18 +11,12 @@ const { isLoggedIn } = require("../middleware");
 
 router.get("/", isLoggedIn, (req, res, next) => {
     const user_id = req.user.id;
-    const today = formatDate();
 
-    function formatDate(){
-        let year, month, day;
-            year = new Date().getFullYear();
-            month = new Date().getMonth() + 1;
-            day = new Date().getDate();
-         return [year, month, day].join("-");
-     }
+    helperFunctions.yyyymmdd();
+    const today = new Date();
     // const q1 = `SELECT * FROM products WHERE user_id = ?`;
-    const q = "SELECT id, user_id, name, price, amount, total_price, type, description, DATE_FORMAT(created_at, '%Y-%c-%d %H:%i:%s') AS created_at FROM products WHERE user_id = ? && DATE_FORMAT(created_at, '%Y-%c-%d') = CAST(? AS DATETIME)";
-    db.query(q, [user_id, today], (err, result) => {
+    const q = "SELECT id, user_id, name, price, amount, total_price, type, description, DATE_FORMAT(created_at, '%Y-%c-%d %H:%i:%s') AS created_at FROM products WHERE user_id = ? && DATE_FORMAT(created_at, '%Y-%m-%d') = ?";
+    db.query(q, [user_id, today.yyyymmdd()], (err, result) => {
         console.log(result);
 
         res.render("search", { result });
@@ -55,10 +50,6 @@ router.get("/:year", isLoggedIn, (req, res, next) => {
         if(err){
             res.json({msg: err.message });
         }
-        // if(result === undefined){
-        //     res.json("there is no such data in database!");
-        // } 
-        console.log(result);
         
         res.render("search", { result });
 

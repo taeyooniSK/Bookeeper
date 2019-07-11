@@ -115,27 +115,5 @@
               <% } %>
           </div>
 
-<script type="text/javascript" src="/scripts/total_price.js">
-  const saveBtn = document.getElementById("save-btn");
-  saveBtn.onsubmit = function(e){
-    /* 
-    let formData = new FormData();
-    const purchaseForm = document.getElementById("purchase__save--form");
-    formData = new FormData(purchaseForm);
-    */
-    e.preventDefault();
-    console.log("it works?");
-    const name = document.getElementById("name"); 
-    const price = document.getElementById("price");
-    const amount = document.getElementById("amount");
-    const description = document.getElementById("description");
-
-      if(name.value.length === 0 || price.value.length === 0 || amount.value.length === 0 || description.value.length === 0){
-        alert("Please enter all information for your purchase :)");
-        return;
-      }
-    
-
-  }
-</script>
+<script type="text/javascript" src="/scripts/total_price.js"></script>
 <% include ./partials/footer %>

@@ -8,12 +8,11 @@
     
     price_input.onkeyup = function (){
         let parsedValue = parseInt(price_input.value);
-        // if parsedValue is not a number, trigger alert (To prevent users type invalid inputs)
-        if ( isNaN(parsedValue) ){
-            alert("Enter only numbers");
-            return;
+
+        if ( parsedValue < 0 ){
+            alert("Enter numbers which are larger than 0");
         }
-           
+        
         if( isNaN(total_price_input.value) ){
             total_price_input.value = 0;
         }
@@ -30,11 +29,9 @@
     
     amount_input.onkeyup = function (){
         let parsedAmountValue = parseInt(amount_input);
-         // if parsedAmountValue is not a number, trigger alert (To prevent users type invalid inputs)
-        if (isNaN(parsedAmountValue) ){
-            console.log(typeof parseInt(parsedAmountValue.value))
-            alert("Enter only numbers");
-            return;
+        
+         if ( parsedAmountValue < 0 ){
+            alert("Enter numbers which are larger than 0");
         }
 
         if( isNaN(total_price_input.value) ){

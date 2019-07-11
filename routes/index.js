@@ -80,6 +80,7 @@ router.post("/signup", (req, res, next) => {
         db.query("SELECT * FROM users WHERE username = ?", [username], (err, result) => {
             // if the username is already taken
             if(result.length > 0) {
+                console.log("when there is already the same username", result);
                 errors.push({msg: "Your username is already registered"});
                 res.render("signup", {
                     errors,
@@ -90,7 +91,7 @@ router.post("/signup", (req, res, next) => {
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(password, salt, (err, hashedPassword) => {
                         db.query("INSERT INTO users (username, password) VALUES ( ?, ? )", [username, hashedPassword], (err, result) => {
-                            console.log(result);
+                            console.log("here?", result);
                             if (err){
                                 req.flash("error", err.message);
                                 return res.render("signup");

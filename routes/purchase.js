@@ -1,26 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/db");
-
+const helperFunctions = require("../public/scripts/helperFunctions");
 
 const { isLoggedIn } = require("../middleware"); 
 
-router.get("/", isLoggedIn, (req, res) => {
-    Date.prototype.yyyymmdd = function (){
-        const yyyy = this.getFullYear(); 
-        const mm = this.getMonth() + 1; // getMonth() is 0 based
-        const dd = this.getDate();
 
-        return [yyyy, (mm > 9 ? "" : "0" ) + mm, (dd > 9 ? "" : "0" ) + dd].join("-");
-    };
+router.get("/", isLoggedIn, (req, res) => {
+    
+    helperFunctions.yyyymmdd();
 
     const user_id = req.user.id;
     const date = new Date();
-    const today = date.yyyymmdd(); 
+    const today = date.yyyymmdd();
 
-    const q = "SELECT * FROM products WHERE user_id = ? && type = 'P';";
+    const q = "SELECT * FROM products WHERE user_id = ? && type = 'P' && created_at = CURDATE();";
 
-    db.query(q, user_id, (err, result) => {
+    db.query(q, [user_id, today], (err, result) => {
         console.log(result);
         res.render("purchase", {
             products : result
@@ -31,11 +27,11 @@ router.get("/", isLoggedIn, (req, res) => {
 
 
 router.post("/", isLoggedIn, (req, res) => {
-    const { name, price, amount, total_price, type, description } = req.body;
+    const { name, price, amount, total_price, type, description } = helperFunctions.trim(req.body);
     const user_id = req.user.id;
     // simple validation just in case a user enters no value in each input
-    if( name.length === 0 || price.value <= 0 || amount.value <= 0 || description.length === 0 ){
-        req.flash("error", "Please enter correct numbers");
+    if( name.length === 0 || price <= 0 || amount <= 0 || description.length === 0 ){
+        req.flash("error", "Please enter all information and correct numbers :)");
         res.redirect("/purchase");
         return;
     }
@@ -72,7 +68,7 @@ router.get("/products/:product_id/edit", isLoggedIn, (req, res) => {
 
 // Update 
 router.put("/products/:product_id", isLoggedIn, (req, res) => {
-    const { name, price, amount, total_price, type, description } = req.body;
+    const { name, price, amount, total_price, type, description } =  helperFunctions.trim(req.body);
     const user_id = req.user.id;
     const product_id = req.params.product_id;
 
