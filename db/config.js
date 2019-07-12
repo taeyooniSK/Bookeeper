@@ -1,8 +1,9 @@
+require("dotenv").config();
 const MYSQL_CONFIG = {
-    host: "127.0.0.3",
-    user: "test",
-    password: "test",
-    database: "crud_mysql",
+    host: process.env.HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DATABASE,
     port: 3306,
     multipleStatements: true
 };

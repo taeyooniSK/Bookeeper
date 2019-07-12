@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const flash = require("connect-flash");
+require("dotenv").config();
 
 
 // Method-ovveride
@@ -74,7 +75,7 @@ app.use('/search', search);
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || process.env.SERVER_PORT;
 
 app.listen(PORT, () => {
     console.log(`Server has started on ${PORT}`);

@@ -19,15 +19,17 @@ router.get("/", isLoggedIn, (req, res) => {
     
     // if there is a data, products will be shown. Otherwise, "No data" shows up in the template
     const q = "SELECT * FROM products WHERE user_id = ?;" +
-              "SELECT MIN(price) AS min_price, name FROM products WHERE user_id = ? && type='P' && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
+              "SELECT MIN(price) AS min_price FROM products WHERE user_id = ? && type='P' && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
               "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && type='P' && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
               "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && type='P' && DATE(created_at) >= DATE_SUB(DATE(NOW()), INTERVAL 7 DAY);" +
-              "SELECT MIN(price) AS min_price, name FROM products WHERE user_id = ? && type='S' && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
+              "SELECT MIN(price) AS min_price FROM products WHERE user_id = ? && type='S' && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
               "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && type='S' && DATE_FORMAT(created_at, '%Y-%m-%d') = ?;" +
               "SELECT SUM(total_price) AS total_price FROM products WHERE user_id = ? && type='S' && DATE(created_at) >= DATE_SUB(DATE(NOW()), INTERVAL 7 DAY);" +
               "SELECT SUM(total_price) AS total_price, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at FROM products WHERE user_id = ? && type='P' && DATE(created_at) >= DATE_SUB(DATE(NOW()), INTERVAL 7 DAY) group by DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY DATE_FORMAT(created_at, '%Y-%m-%d');" +
-              "SELECT SUM(total_price) AS total_price, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at FROM products WHERE user_id = ? && type='S' && DATE(created_at) >= DATE_SUB(DATE(NOW()), INTERVAL 7 DAY) group by DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY DATE_FORMAT(created_at, '%Y-%m-%d');"
-    db.query(q, [user_id, user_id, today, user_id, today, user_id, user_id, today, user_id, today, user_id, user_id, user_id], (err, result) => {
+              "SELECT SUM(total_price) AS total_price, DATE_FORMAT(created_at, '%Y-%m-%d') AS created_at FROM products WHERE user_id = ? && type='S' && DATE(created_at) >= DATE_SUB(DATE(NOW()), INTERVAL 7 DAY) group by DATE_FORMAT(created_at,'%Y-%m-%d') ORDER BY DATE_FORMAT(created_at, '%Y-%m-%d');" +
+              "SELECT name from products WHERE user_id = ? && type='P' && DATE_FORMAT(created_at, '%Y-%m-%d') ORDER BY price ASC limit 1;" +
+              "SELECT name from products WHERE user_id = ? && type='S' && DATE_FORMAT(created_at, '%Y-%m-%d') ORDER BY price ASC limit 1;" 
+    db.query(q, [user_id, user_id, today, user_id, today, user_id, user_id, today, user_id, today, user_id, user_id, user_id, user_id, user_id], (err, result) => {
         if (err) console.log(err);
             console.log(result);
             res.render("dashboard", {
