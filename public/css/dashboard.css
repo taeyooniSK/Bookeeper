@@ -1,0 +1,6 @@
+.content__wrapper > .container .row {
+   height: 150px; padding: 30px;
+}
+small {
+    font-size: 1rem;
+}

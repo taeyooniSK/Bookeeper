@@ -14,7 +14,7 @@ router.get("/", isLoggedIn, (req, res) => {
     const date = new Date();
     const today = date.yyyymmdd();
 
-    const q = "SELECT * FROM products WHERE user_id = ? && type = 'P' && created_at = CURDATE();";
+    const q = "SELECT * FROM products WHERE user_id = ? && type = 'P' && DATE_FORMAT(created_at, '%Y-%m-%d') = CURDATE();";
 
     db.query(q, [user_id, today], (err, result) => {
         console.log(result);
