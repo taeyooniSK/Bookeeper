@@ -79,6 +79,7 @@ router.post("/signup", (req, res, next) => {
     } else {
         db.query("SELECT * FROM users WHERE username = ?", [username], (err, result) => {
             // if the username is already taken
+            console.log("index.js result", result);
             if(result.length > 0) {
                 console.log("when there is already the same username", result);
                 errors.push({msg: "Your username is already registered"});
@@ -107,29 +108,6 @@ router.post("/signup", (req, res, next) => {
     }
     
 });
-
-// Test route: it's going to be changed
-
-router.get("/", (req, res, next) => {
-
-    const q = "SELECT name, price, amount, total_price, created_at, COUNT(*) AS numberOfItems FROM products";
-    db.query(q, (err, result) => {
-        if (err) console.log(err);
-         const name = result[0].name;
-         const price = result[0].price;
-         const amount = result[0].amount;
-         const total_price = result[0].total_price;
-         const numOfItems = result[0].numberOfItems;
-    
-        console.log(result);
-        
-        
-        res.render('home', {result, numOfItems});
-        
-    });
-    
-});
-
 
 module.exports = router;
 

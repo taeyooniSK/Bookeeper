@@ -14,7 +14,7 @@ module.exports = function (passport) {
                     return done(null, false, "The username is not registered"); // flash message
                 }
                 // if there is the user
-                const user = result[0]
+                const user = result[0];
                 const pwd = user.password; // Found password from DB
                 // hash된 비밀번호와 입력된 비밀번호 비교 through bcrypt
                 bcrypt.compare(password, pwd, (err, isMatch) => {

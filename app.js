@@ -75,7 +75,7 @@ app.use('/search', search);
 
 
 
-const PORT = process.env.PORT || process.env.SERVER_PORT;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Server has started on ${PORT}`);
